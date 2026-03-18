@@ -1,0 +1,18 @@
+2026-03-18 20:00:52,986 [django.utils.autoreload:681] [autoreload:run_with_reloader] [INFO] - Watching for file changes with StatReloader
+2026-03-18 20:00:56,262 [django.server:249] [log:log_message] [INFO] - "GET /myhello/add?title=1&content=2&photo=3&location=4 HTTP/1.1" 200 5416
+2026-03-18 20:00:56,351 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3426
+2026-03-18 20:00:56,363 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+2026-03-18 20:00:56,364 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1793
+2026-03-18 20:00:56,369 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+2026-03-18 20:00:56,369 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1152
+2026-03-18 20:00:56,377 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 200 59
+2026-03-18 20:00:56,379 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3796
+2026-03-18 20:00:56,380 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+2026-03-18 20:00:56,382 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+2026-03-18 20:00:56,383 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+2026-03-18 20:00:56,384 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+2026-03-18 20:00:56,398 [django.server:249] [log:log_message] [INFO] - "GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 200 87533
+2026-03-18 20:00:56,429 [django.request:249] [log:log_message] [WARNING] - Not Found: /favicon.ico
+2026-03-18 20:00:56,430 [django.server:249] [log:log_message] [WARNING] - "GET /favicon.ico HTTP/1.1" 404 2518
+2026-03-18 20:01:24,824 [django.server:249] [log:log_message] [INFO] - "GET /myhello/list HTTP/1.1" 200 114
+2026-03-18 20:01:35,324 [django.server:249] [log:log_message] [INFO] - "GET /myhello/list HTTP/1.1" 200 114
