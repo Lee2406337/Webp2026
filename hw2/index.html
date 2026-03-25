@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HW#2 - 資工選課表</title>
+
+  <style>
+    table {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #ddd;
+      padding: 6px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    body {
+      margin: 30px;
+      font-family: "Microsoft JhengHei", Arial, sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      color: blue;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>資工選課表</h1>
+
+  
+
+  <table id="csie">
+    <tr>
+      <th>開課單位</th>
+      <th>課程名稱</th>
+      <th>授課教師</th>
+    </tr>
+
+    <tr>
+      <td>資工系</td>
+      <td><a href="https://catalog.cgu.edu.tw/coursedata?sectionid=A2337">物件導向軟體設計</a></td>
+      <td>黃崇源</td>
+    </tr>
+
+    <tr>
+      <td>資工系</td>
+      <td><a href="https://catalog.cgu.edu.tw/coursedata?sectionid=61602">計算機網路實驗</a></td>
+      <td>李春良</td>
+    </tr>
+
+    <tr>
+      <td>資工系</td>
+      <td><a href="https://catalog.cgu.edu.tw/coursedata?sectionid=A2338">作業系統實務</a></td>
+      <td>張哲維</td>
+    </tr>
+
+    <tr>
+      <td>資工系</td>
+      <td><a href="https://catalog.cgu.edu.tw/coursedata?sectionid=71796">生物統計</a></td>
+      <td>陳光武</td>
+    </tr>
+
+    <tr>
+      <td>資工系</td>
+      <td><a href="https://catalog.cgu.edu.tw/coursedata?sectionid=A2339">通訊系統</a></td>
+      <td>陳仁暉</td>
+    </tr>
+
+    <tr>
+      <td>資工系</td>
+      <td><a href="https://catalog.cgu.edu.tw/coursedata?sectionid=56665">軟硬體專題(2)</a></td>
+      <td>魏志達</td>
+    </tr>
+
+  </table>
+
+  <button onclick="changeResult()">Change</button>
+
+  <script>
+    function changeResult(){
+        var myTable = document.getElementById("csie");
+        myTable.rows[1].cells[2].innerHTML = "李春良";
+    }
+  </script>
+
+</body>
+</html>
