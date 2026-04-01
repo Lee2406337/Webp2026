@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>聖誕樹</title>
+</head>
+<body>
+  <pre id="tree"></pre>
+
+  <script>
+    function generateTree(height) {
+      let output = "";
+
+      for (let i = 1; i <= height; i++) {
+        let spaces = " ".repeat(height - i);
+        let stars = "*".repeat(i * 2 - 1);
+        output += spaces + stars + "\n";
+      }
+
+      let trunkSpaces = " ".repeat(height - 1);
+      output += trunkSpaces + "|\n";
+      output += trunkSpaces + "|";
+
+      return output;
+    }
+
+    document.getElementById("tree").textContent = generateTree(6);
+  </script>
+</body>
+</html>
