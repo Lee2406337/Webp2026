@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HW#4 - Ajax + 搜尋 + 分頁</title>
+  <style>
+    table {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #ddd;
+      padding: 6px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    body {
+      margin: 30px;
+      font-family: "Microsoft JhengHei", Arial, sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 8px 14px;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+
+    input[type="text"] {
+      padding: 8px 14px;
+      margin-bottom: 15px;
+      font-family: "Microsoft JhengHei", Arial, sans-serif;
+    }
+
+    #pageInfo {
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>景點觀光展覽資訊</h1>
+
+  <div class="toolbar">
+    <button onclick="loadData()">載入資料</button>
+
+    <label for="keyword">名稱搜尋：</label>
+    <input
+      type="text"
+      id="keyword"
+      placeholder="請輸入關鍵字，如：臺灣"
+      onchange="searchData()"
+    >
+  </div>
+
+  <div class="page-info" id="pageInfo">目前第 0 頁 / 總共 0 頁</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>名稱</th>
+        <th>地點</th>
+        <th>開始日期</th>
+        <th>結束日期</th>
+      </tr>
+    </thead>
+    <tbody id="demo">
+      <tr>
+        <td colspan="4">尚未載入資料</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <button id="prevBtn" onclick="prevPage()" disabled>上一頁</button>
+    <button id="nextBtn" onclick="nextPage()" disabled>下一頁</button>
+  </div>
+
+  <div class="hint">
+    搜尋會依「名稱」過濾資料，且會重新計算頁數。每頁固定顯示 10 筆。
+  </div>
+
+  <script>
+    var openUrl =
+      "https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6";
+
+    var allData = [];
+    var filteredData = [];
+    var currentPage = 1;
+    var pageSize = 10;
+
+    function loadData() {
+      var xhr = new XMLHttpRequest();
+
+      xhr.open("GET", openUrl, true);
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            allData = JSON.parse(xhr.responseText);
+            filteredData = allData.slice();
+            currentPage = 1;
+            renderTable();
+          } else {
+            document.getElementById("demo").innerHTML =
+              '<tr><td colspan="4">資料載入失敗</td></tr>';
+            document.getElementById("pageInfo").textContent =
+              "目前第 0 頁 / 總共 0 頁";
+          }
+        }
+      };
+
+      xhr.send();
+    }
+
+    function searchData() {
+      var keyword = document.getElementById("keyword").value.trim().toLowerCase();
+
+      if (keyword === "") {
+        filteredData = allData.slice();
+      } else {
+        filteredData = allData.filter(function (item) {
+          var title = item.title ? item.title.toLowerCase() : "";
+          return title.indexOf(keyword) !== -1;
+        });
+      }
+
+      currentPage = 1;
+      renderTable();
+    }
+
+    function renderTable() {
+      var tbody = document.getElementById("demo");
+      var pageInfo = document.getElementById("pageInfo");
+      var prevBtn = document.getElementById("prevBtn");
+      var nextBtn = document.getElementById("nextBtn");
+
+      var totalPages = Math.ceil(filteredData.length / pageSize);
+
+      if (filteredData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4">查無資料</td></tr>';
+        pageInfo.textContent = "目前第 0 頁 / 總共 0 頁";
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
+
+      if (currentPage < 1) {
+        currentPage = 1;
+      }
+
+      if (currentPage > totalPages) {
+        currentPage = totalPages;
+      }
+
+      var startIndex = (currentPage - 1) * pageSize;
+      var endIndex = startIndex + pageSize;
+      var pageData = filteredData.slice(startIndex, endIndex);
+
+      var text = "";
+
+      for (var i = 0; i < pageData.length; i++) {
+        var item = pageData[i];
+        var name = item.title || "無資料";
+        var startDate = item.startDate || "無資料";
+        var endDate = item.endDate || "無資料";
+
+        var locationName = "無資料";
+        if (
+          item.showInfo &&
+          item.showInfo.length > 0 &&
+          item.showInfo[0].locationName
+        ) {
+          locationName = item.showInfo[0].locationName;
+        }
+
+        text += "<tr>";
+        text += "<td>" + escapeHtml(name) + "</td>";
+        text += "<td>" + escapeHtml(locationName) + "</td>";
+        text += "<td>" + escapeHtml(startDate) + "</td>";
+        text += "<td>" + escapeHtml(endDate) + "</td>";
+        text += "</tr>";
+      }
+
+      tbody.innerHTML = text;
+      pageInfo.textContent =
+        "目前第 " + currentPage + " 頁 / 總共 " + totalPages + " 頁";
+
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+      }
+    }
+
+    function nextPage() {
+      var totalPages = Math.ceil(filteredData.length / pageSize);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderTable();
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>
