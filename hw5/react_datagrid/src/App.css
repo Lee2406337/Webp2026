@@ -1,0 +1,38 @@
+body {
+  margin: 30px;
+  font-family: "Microsoft JhengHei", Arial, sans-serif;
+  background-color: #ffffff;
+}
+
+.page {
+  width: 100%;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.toolbar {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+input {
+  padding: 8px 14px;
+  font-family: "Microsoft JhengHei", Arial, sans-serif;
+  border: 1px solid #ccc;
+}
+
+.info {
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.gridBox {
+  height: 600px;
+  width: 100%;
+}
